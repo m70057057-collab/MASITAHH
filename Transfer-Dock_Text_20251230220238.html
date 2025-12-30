@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MASITAH | Toko Baju Wanita</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f8f4ff;
+}
+header{
+    background:#d4a5ff;
+    padding:20px;
+    text-align:center;
+    color:white;
+}
+nav{
+    margin-top:10px;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 10px;
+    font-weight:bold;
+}
+.hero{
+    background:url('https://via.placeholder.com/1200x400?text=MASITAH+Fashion') center/cover;
+    height:350px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-shadow:2px 2px 6px rgba(0,0,0,.6);
+}
+.products{
+    padding:40px 20px;
+    text-align:center;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+.product{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
+.product img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    border-radius:10px;
+}
+.btn{
+    background:#d4a5ff;
+    border:none;
+    color:white;
+    padding:10px 15px;
+    border-radius:5px;
+    cursor:pointer;
+    font-weight:bold;
+}
+.btn:hover{
+    background:#b57ce6;
+}
+.cart{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#d4a5ff;
+    color:white;
+    padding:15px;
+    border-radius:50px;
+    cursor:pointer;
+}
+.cart-box{
+    position:fixed;
+    right:20px;
+    bottom:90px;
+    width:300px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+    display:none;
+    padding:15px;
+}
+footer{
+    background:#333;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>MASITAH</h1>
+<nav>
+<a href="#">Beranda</a>
+<a href="#produk">Produk</a>
+<a href="#kontak">Kontak</a>
+</nav>
+</header>
+
+<section class="hero">
+<h1>Baju Wanita Trendy<br>Usia 15–30 Tahun</h1>
+</section>
+
+<section class="products" id="produk">
+<h2>Koleksi Terbaru</h2>
+
+<div class="grid">
+
+<div class="product">
+<img src="https://via.placeholder.com/300x200?text=Crop+Top">
+<h3>Crop Top Boho</h3>
+<p>Rp150.000</p>
+<button class="btn" onclick="addCart('Crop Top Boho',150000)">Tambah Keranjang</button>
+</div>
+
+<div class="product">
+<img src="https://via.placeholder.com/300x200?text=Blouse">
+<h3>Blouse Elegan</h3>
+<p>Rp200.000</p>
+<button class="btn" onclick="addCart('Blouse Elegan',200000)">Tambah Keranjang</button>
+</div>
+
+<div class="product">
+<img src="https://via.placeholder.com/300x200?text=Dress">
+<h3>Dress Mini</h3>
+<p>Rp250.000</p>
+<button class="btn" onclick="addCart('Dress Mini',250000)">Tambah Keranjang</button>
+</div>
+
+</div>
+</section>
+
+<div class="cart" onclick="toggleCart()">🛒 Keranjang</div>
+
+<div class="cart-box" id="cartBox">
+<h3>Keranjang Belanja</h3>
+<ul id="cartList"></ul>
+<p><b>Total: Rp <span id="total">0</span></b></p>
+<button class="btn" onclick="checkout()">Checkout WhatsApp</button>
+</div>
+
+<footer id="kontak">
+<p>© 2025 MASITAH<br>WhatsApp: +62 831-5013-9316</p>
+</footer>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addCart(name, price){
+    cart.push({name,price});
+    total += price;
+    renderCart();
+}
+
+function renderCart(){
+    let list = document.getElementById("cartList");
+    list.innerHTML="";
+    cart.forEach(item=>{
+        let li=document.createElement("li");
+        li.textContent=item.name+" - Rp"+item.price;
+        list.appendChild(li);
+    });
+    document.getElementById("total").textContent=total;
+}
+
+function toggleCart(){
+    let box=document.getElementById("cartBox");
+    box.style.display = box.style.display==="block"?"none":"block";
+}
+
+function checkout(){
+    let msg="Halo MASITAH, saya ingin membeli:%0A";
+    cart.forEach(i=>{
+        msg+=`- ${i.name} (Rp${i.price})%0A`;
+    });
+    msg+=`Total: Rp${total}`;
+    window.open("https://wa.me/6283150139316?text="+msg);
+}
+</script>
+
+</body>
+</html>
